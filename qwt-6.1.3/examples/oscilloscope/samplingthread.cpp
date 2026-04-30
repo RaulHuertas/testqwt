@@ -19,6 +19,11 @@ void SamplingThread::setFrequency( double frequency )
     d_frequency = frequency;
 }
 
+void SamplingThread::setVerticalOffset(double offset)
+{
+    d_verticalOffset = offset;
+}
+
 double SamplingThread::frequency() const
 {
     return d_frequency;
@@ -48,7 +53,7 @@ double SamplingThread::value( double timeStamp ) const
     const double period = 1.0 / d_frequency;
 
     const double x = ::fmod( timeStamp, period );
-    const double v = d_amplitude * qFastSin( x / period * 2 * M_PI );
+    const double v = d_verticalOffset+d_amplitude * qFastSin( x / period * 2 * M_PI );
 
     return v;
 }

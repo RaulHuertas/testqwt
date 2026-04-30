@@ -13,6 +13,7 @@ public:
 public Q_SLOTS:
     void setAmplitude( double );
     void setFrequency( double );
+    void setVerticalOffset(double offset);
 
 protected:
     virtual void sample( double elapsed );
@@ -22,4 +23,6 @@ private:
 
     double d_frequency;
     double d_amplitude;
+    double d_verticalOffset;
+
 };

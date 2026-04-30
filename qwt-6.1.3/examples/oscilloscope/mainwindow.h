@@ -27,6 +27,7 @@ public:
 Q_SIGNALS:
     void amplitudeChanged( double );
     void frequencyChanged( double );
+    void verticalOffsetChanged(double);
     void signalIntervalChanged( double );
     
 
@@ -37,6 +38,7 @@ public Q_SLOTS:
 private:
     Knob *d_frequencyKnob;
     Knob *d_amplitudeKnob;
+    Knob* d_verticalOffsetKnob;
     WheelBox *d_timerWheel;
     WheelBox *d_intervalWheel;
     QPushButton* d_stop_play_button;

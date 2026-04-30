@@ -26,6 +26,9 @@ MainWindow::MainWindow( QWidget *parent ):
     d_frequencyKnob = new Knob( "Frequency [Hz]", 0.1, 20.0, this );
     d_frequencyKnob->setValue( 17.8 );
 
+    d_verticalOffsetKnob = new Knob("Vertical Offset", -100, 100, this);
+    d_verticalOffsetKnob->setValue(0);
+
     d_intervalWheel = new WheelBox( "Displayed [s]", 1.0, 100.0, 1.0, this );
     d_intervalWheel->setValue( intervalLength );
 
@@ -50,6 +53,7 @@ MainWindow::MainWindow( QWidget *parent ):
     vLayout1->addStretch( 10 );
     vLayout1->addWidget( d_amplitudeKnob );
     vLayout1->addWidget( d_frequencyKnob );
+    vLayout1->addWidget( d_verticalOffsetKnob );
 
     QVBoxLayout* vLayout2 = new QVBoxLayout();
     vLayout2->addWidget( d_stop_play_button);
@@ -75,6 +79,9 @@ MainWindow::MainWindow( QWidget *parent ):
         SIGNAL( amplitudeChanged( double ) ) );
     connect( d_frequencyKnob, SIGNAL( valueChanged( double ) ),
         SIGNAL( frequencyChanged( double ) ) );
+    connect(d_verticalOffsetKnob, SIGNAL(valueChanged(double)),
+        SIGNAL(verticalOffsetChanged(double)));
+
     connect( d_timerWheel, SIGNAL( valueChanged( double ) ),
         SIGNAL( signalIntervalChanged( double ) ) );
 

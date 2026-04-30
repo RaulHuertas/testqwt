@@ -21,6 +21,8 @@ int main(int argc, char *argv[])
         &samplingThread, SLOT( setFrequency( double ) ) );
     window.connect( &window, SIGNAL( amplitudeChanged( double ) ),
         &samplingThread, SLOT( setAmplitude( double ) ) );
+    window.connect(&window, SIGNAL(verticalOffsetChanged(double)),
+        &samplingThread, SLOT(setVerticalOffset(double)));
     window.connect( &window, SIGNAL( signalIntervalChanged( double ) ),
         &samplingThread, SLOT( setInterval( double ) ) );
 
