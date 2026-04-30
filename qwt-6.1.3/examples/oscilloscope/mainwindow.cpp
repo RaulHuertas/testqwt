@@ -10,7 +10,8 @@
 #include <qlistwidget.h>
 #include <qlistwidget.h>
 #include "GrabDisplay.h"
-
+#include <qfiledialog.h>
+#include <qfile.h>
 
 MainWindow::MainWindow( QWidget *parent ):
     QWidget( parent )
@@ -42,10 +43,13 @@ MainWindow::MainWindow( QWidget *parent ):
     d_foto_actual = new QPushButton(this);
     d_foto_actual->setText("Foto Actual");
     d_capturesList = new QListWidget(this); 
+    d_capturesList->setSelectionMode(QAbstractItemView::SingleSelection);
     d_params_label = new QLabel(this);
     d_params_label->setText("<-Select a capture from the list");
     d_captures_widget = new GrabDisplay(this);
     d_captures_widget->setMinimumSize(QSize(100,100));
+    d_save_capture = new QPushButton(this);
+    d_save_capture->setText("Salvar en...");
 
     QVBoxLayout* vLayout1 = new QVBoxLayout();
     vLayout1->addWidget( d_intervalWheel );
@@ -65,6 +69,7 @@ MainWindow::MainWindow( QWidget *parent ):
     QVBoxLayout* vLayout4 = new QVBoxLayout();
     vLayout4->addWidget(d_params_label);
     vLayout4->addWidget(d_captures_widget);
+    vLayout4->addWidget(d_save_capture);
 
 
     QHBoxLayout *layout = new QHBoxLayout( this );
@@ -99,6 +104,8 @@ MainWindow::MainWindow( QWidget *parent ):
         this, 
         SLOT(captureSelected(QListWidgetItem*, QListWidgetItem*))
     );
+    connect(d_save_capture, SIGNAL(clicked()),
+        this, SLOT(saveCaptureToFile()));
 
 }
 
@@ -156,3 +163,33 @@ void MainWindow::captureSelected(QListWidgetItem* current, QListWidgetItem* prev
     d_captures_widget->update();
 }
 
+void MainWindow::saveCaptureToFile() {
+    int index = -1;
+    for (int j = 0; j < captures.size(); j++) {
+        if (d_capturesList->item(j) == d_capturesList->currentItem()) {
+            index = j;
+            break;
+        }
+    }
+    if (index < 0) {
+        return;
+    }
+
+    QString dst = QFileDialog::getSaveFileName(this, tr("Save File"),
+        "im"+QString::number(index)+".png",
+        tr("Images (*.png)"));
+    if (dst.size() == 0) {
+        return;
+    }
+    if (dst.isNull()) {
+        return;
+    } if (dst.isEmpty()) {
+        return;
+    }
+    const CaptureState& item = captures[index];
+    QFile file(dst);
+    file.open(QIODevice::WriteOnly);
+    item.pixmap->save(&file, "PNG");
+
+
+}

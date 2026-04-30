@@ -34,6 +34,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void createCapture();
     void captureSelected(QListWidgetItem* current, QListWidgetItem* prev);
+    void saveCaptureToFile();
 
 private:
     Knob *d_frequencyKnob;
@@ -47,6 +48,7 @@ private:
     QListWidget* d_capturesList;
     QLabel* d_params_label;
     GrabDisplay* d_captures_widget;
+    QPushButton* d_save_capture;
 
     Plot *d_plot;
 
