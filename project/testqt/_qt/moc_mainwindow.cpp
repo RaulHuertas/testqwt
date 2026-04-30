@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[12];
-    char stringdata0[168];
+    QByteArrayData data[13];
+    char stringdata0[180];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,14 +42,16 @@ QT_MOC_LITERAL(7, 104, 15), // "captureSelected"
 QT_MOC_LITERAL(8, 120, 16), // "QListWidgetItem*"
 QT_MOC_LITERAL(9, 137, 7), // "current"
 QT_MOC_LITERAL(10, 145, 4), // "prev"
-QT_MOC_LITERAL(11, 150, 17) // "saveCaptureToFile"
+QT_MOC_LITERAL(11, 150, 17), // "saveCaptureToFile"
+QT_MOC_LITERAL(12, 168, 11) // "changeColor"
 
     },
     "MainWindow\0amplitudeChanged\0\0"
     "frequencyChanged\0verticalOffsetChanged\0"
     "signalIntervalChanged\0createCapture\0"
     "captureSelected\0QListWidgetItem*\0"
-    "current\0prev\0saveCaptureToFile"
+    "current\0prev\0saveCaptureToFile\0"
+    "changeColor"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,7 +61,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -67,15 +69,16 @@ static const uint qt_meta_data_MainWindow[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
-       3,    1,   52,    2, 0x06 /* Public */,
-       4,    1,   55,    2, 0x06 /* Public */,
-       5,    1,   58,    2, 0x06 /* Public */,
+       1,    1,   54,    2, 0x06 /* Public */,
+       3,    1,   57,    2, 0x06 /* Public */,
+       4,    1,   60,    2, 0x06 /* Public */,
+       5,    1,   63,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,   61,    2, 0x0a /* Public */,
-       7,    2,   62,    2, 0x0a /* Public */,
-      11,    0,   67,    2, 0x0a /* Public */,
+       6,    0,   66,    2, 0x0a /* Public */,
+       7,    2,   67,    2, 0x0a /* Public */,
+      11,    0,   72,    2, 0x0a /* Public */,
+      12,    0,   73,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Double,    2,
@@ -86,6 +89,7 @@ static const uint qt_meta_data_MainWindow[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 8, 0x80000000 | 8,    9,   10,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -104,6 +108,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->createCapture(); break;
         case 5: _t->captureSelected((*reinterpret_cast< QListWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
         case 6: _t->saveCaptureToFile(); break;
+        case 7: _t->changeColor(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -164,13 +169,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

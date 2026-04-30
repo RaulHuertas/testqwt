@@ -35,6 +35,7 @@ public Q_SLOTS:
     void createCapture();
     void captureSelected(QListWidgetItem* current, QListWidgetItem* prev);
     void saveCaptureToFile();
+    void changeColor();
 
 private:
     Knob *d_frequencyKnob;
@@ -49,6 +50,9 @@ private:
     QLabel* d_params_label;
     GrabDisplay* d_captures_widget;
     QPushButton* d_save_capture;
+
+
+    QPushButton* d_change_color;
 
     Plot *d_plot;
 

@@ -12,6 +12,7 @@
 #include "GrabDisplay.h"
 #include <qfiledialog.h>
 #include <qfile.h>
+#include <qcolordialog.h>
 
 MainWindow::MainWindow( QWidget *parent ):
     QWidget( parent )
@@ -38,6 +39,8 @@ MainWindow::MainWindow( QWidget *parent ):
 
     d_stop_play_button = new QPushButton(this);
     d_stop_play_button->setText("Stop/Play");
+    d_change_color = new QPushButton(this);
+    d_change_color->setText("Cambiar color");
      
     //Captures
     d_foto_actual = new QPushButton(this);
@@ -58,6 +61,7 @@ MainWindow::MainWindow( QWidget *parent ):
     vLayout1->addWidget( d_amplitudeKnob );
     vLayout1->addWidget( d_frequencyKnob );
     vLayout1->addWidget( d_verticalOffsetKnob );
+    vLayout1->addWidget( d_change_color );
 
     QVBoxLayout* vLayout2 = new QVBoxLayout();
     vLayout2->addWidget( d_stop_play_button);
@@ -106,6 +110,8 @@ MainWindow::MainWindow( QWidget *parent ):
     );
     connect(d_save_capture, SIGNAL(clicked()),
         this, SLOT(saveCaptureToFile()));
+    connect(d_change_color, SIGNAL(clicked()),
+        this, SLOT(changeColor()));
 
 }
 
@@ -192,4 +198,15 @@ void MainWindow::saveCaptureToFile() {
     item.pixmap->save(&file, "PNG");
 
 
+}
+
+void MainWindow::changeColor() {
+    qDebug() << "a";
+    QColor new_color = QColorDialog::getColor();
+    qDebug() << "b";
+    if (!new_color.isValid()) {
+        return;
+    }
+    qDebug() << "c";
+    d_plot->set_plot_color(new_color);
 }

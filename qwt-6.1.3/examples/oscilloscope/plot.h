@@ -5,6 +5,7 @@
 class QwtPlotCurve;
 class QwtPlotMarker;
 class QwtPlotDirectPainter;
+class QwtPlotCanvas;
 
 class Plot: public QwtPlot
 {
@@ -25,6 +26,9 @@ public Q_SLOTS:
     void stop();
     void play();
     void stop_play();
+
+    void set_plot_color(QColor newColor);
+
 
 protected:
     virtual void showEvent( QShowEvent * );
@@ -47,4 +51,5 @@ private:
     QwtSystemClock d_clock;
 
     bool m_stop;
+    QColor m_plot_color;
 };

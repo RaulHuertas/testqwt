@@ -11,10 +11,11 @@
 #include <qwt_painter.h>
 #include <qevent.h>
 
+
 class Canvas: public QwtPlotCanvas
 {
 public:
-    Canvas( QwtPlot *plot = NULL ):
+    Canvas(QColor newColor, QwtPlot *plot = NULL ):
         QwtPlotCanvas( plot )
     {
         // The backing store is important, when working with widget
@@ -49,11 +50,14 @@ public:
             }
         }
 
-        setupPalette();
+        setupPalette(newColor);
     }
 
+    void changePlotColor(QColor newColor) {
+        setupPalette(newColor);
+    }
 private:
-    void setupPalette()
+    void setupPalette(QColor newColor)
     {
         QPalette pal = palette();
 
@@ -69,7 +73,7 @@ private:
 #endif
 
         // QPalette::WindowText is used for the curve color
-        pal.setColor( QPalette::WindowText, Qt::green );
+        pal.setColor( QPalette::WindowText, newColor);
 
         setPalette( pal );
     }
@@ -81,10 +85,11 @@ Plot::Plot( QWidget *parent ):
     d_interval( 0.0, 10.0 ),
     d_timerId( -1 )
 {
+    m_plot_color = Qt::green;
     d_directPainter = new QwtPlotDirectPainter();
 
     setAutoReplot( false );
-    setCanvas( new Canvas() );
+    setCanvas(new Canvas(m_plot_color));
 
     plotLayout()->setAlignCanvasToScales( true );
 
@@ -255,8 +260,6 @@ bool Plot::eventFilter( QObject *object, QEvent *event )
     return QwtPlot::eventFilter( object, event );
 }
 
-
-
 void Plot::stop() {
     this->m_stop = true;
 }
@@ -267,4 +270,9 @@ void Plot::play() {
 
 void Plot::stop_play() {
     this->m_stop = !this->m_stop;
+}
+
+void Plot::set_plot_color(QColor newColor) {
+    m_plot_color = newColor;
+    ((Canvas*)canvas())->changePlotColor(newColor);
 }
