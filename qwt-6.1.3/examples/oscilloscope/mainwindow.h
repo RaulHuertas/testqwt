@@ -8,6 +8,7 @@ class WheelBox;
 class QPushButton;
 class QListWidget;
 class QLabel;
+class QListWidgetItem;
 
 class MainWindow : public QWidget
 {
@@ -26,9 +27,11 @@ Q_SIGNALS:
     void amplitudeChanged( double );
     void frequencyChanged( double );
     void signalIntervalChanged( double );
+    
 
 public Q_SLOTS:
     void createCapture();
+    void captureSelected(QListWidgetItem* current, QListWidgetItem* prev);
 
 private:
     Knob *d_frequencyKnob;

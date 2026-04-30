@@ -41,8 +41,7 @@ MainWindow::MainWindow( QWidget *parent ):
     d_params_label = new QLabel(this);
     d_params_label->setText("<-Select a capture from the list");
     d_captures_widget = new QWidget(this);
-
-
+    d_captures_widget->setMinimumSize(QSize(100,100));
 
     QVBoxLayout* vLayout1 = new QVBoxLayout();
     vLayout1->addWidget( d_intervalWheel );
@@ -71,8 +70,6 @@ MainWindow::MainWindow( QWidget *parent ):
     layout->addLayout( vLayout4 );
 
     //Widgets de captura
-
-
     connect( d_amplitudeKnob, SIGNAL( valueChanged( double ) ),
         SIGNAL( amplitudeChanged( double ) ) );
     connect( d_frequencyKnob, SIGNAL( valueChanged( double ) ),
@@ -87,6 +84,13 @@ MainWindow::MainWindow( QWidget *parent ):
         d_plot, SLOT(stop_play()));
     connect(d_foto_actual, SIGNAL(clicked()),
         this, SLOT(createCapture()));
+
+    connect( 
+        d_capturesList,
+        SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
+        this, 
+        SLOT(captureSelected(QListWidgetItem*, QListWidgetItem*))
+    );
 
 }
 
@@ -114,15 +118,32 @@ void MainWindow::createCapture() {
     CaptureState newItem;
     newItem.amplitude = d_amplitudeKnob->value();
     newItem.frequency = d_frequencyKnob->value();
-
-   
-
     newItem.pixmap = new QPixmap(
         d_plot->grab(QRect(QPoint(0, 0), QSize(-1, -1)))
     );
-
-
     captures.push_back(newItem);
-
     d_capturesList->addItem("Item "+QString::number(d_capturesList->count()+1));
 }
+
+void MainWindow::captureSelected(QListWidgetItem* current, QListWidgetItem* prev) {
+    qDebug() << "Item selected";
+    int index = -1;
+    for (int j = 0; j < captures.size();j++) {
+        if (d_capturesList->item(j) == current) {
+            index = j;
+            break;
+        }
+    }
+    if (index < 0) {
+        return;
+    }
+    
+    const CaptureState& item = captures[index];
+    d_params_label->setText(
+        "Item "+QString::number(index+1)+", "+
+        "Amplitude: "+ QString::number(item.amplitude) + ", "
+        "Frequency: " + QString::number(item.frequency) 
+    );
+    d_captures_widget->update();
+}
+
