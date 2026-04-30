@@ -22,6 +22,10 @@ public:
 public Q_SLOTS:
     void setIntervalLength( double );
 
+    void stop();
+    void play();
+    void stop_play();
+
 protected:
     virtual void showEvent( QShowEvent * );
     virtual void resizeEvent( QResizeEvent * );
@@ -41,4 +45,6 @@ private:
     int d_timerId;
 
     QwtSystemClock d_clock;
+
+    bool m_stop;
 };

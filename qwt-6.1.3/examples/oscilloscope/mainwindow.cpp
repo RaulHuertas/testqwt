@@ -5,6 +5,8 @@
 #include <qwt_scale_engine.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qpushbutton.h>
+
 
 MainWindow::MainWindow( QWidget *parent ):
     QWidget( parent )
@@ -26,12 +28,19 @@ MainWindow::MainWindow( QWidget *parent ):
     d_timerWheel = new WheelBox( "Sample Interval [ms]", 0.0, 20.0, 0.1, this );
     d_timerWheel->setValue( 10.0 );
 
+    d_stop_play_button = new QPushButton(this);
+    d_stop_play_button->setText("Stop/Play");
+     
+
+
+
     QVBoxLayout* vLayout1 = new QVBoxLayout();
     vLayout1->addWidget( d_intervalWheel );
     vLayout1->addWidget( d_timerWheel );
     vLayout1->addStretch( 10 );
     vLayout1->addWidget( d_amplitudeKnob );
     vLayout1->addWidget( d_frequencyKnob );
+    vLayout1->addWidget( d_stop_play_button);
 
     QHBoxLayout *layout = new QHBoxLayout( this );
     layout->addWidget( d_plot, 10 );
@@ -46,6 +55,10 @@ MainWindow::MainWindow( QWidget *parent ):
 
     connect( d_intervalWheel, SIGNAL( valueChanged( double ) ),
         d_plot, SLOT( setIntervalLength( double ) ) );
+
+    connect(d_stop_play_button, SIGNAL(clicked()),
+        d_plot, SLOT(stop_play()));
+
 }
 
 void MainWindow::start()

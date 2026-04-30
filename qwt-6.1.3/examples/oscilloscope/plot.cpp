@@ -113,6 +113,8 @@ Plot::Plot( QWidget *parent ):
     d_curve->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
     d_curve->setData( new CurveData() );
     d_curve->attach( this );
+
+    m_stop = false;
 }
 
 Plot::~Plot()
@@ -217,7 +219,7 @@ void Plot::incrementInterval()
 
 void Plot::timerEvent( QTimerEvent *event )
 {
-    if ( event->timerId() == d_timerId )
+    if ( (event->timerId() == d_timerId) && !(m_stop))
     {
         updateCurve();
 
@@ -251,4 +253,18 @@ bool Plot::eventFilter( QObject *object, QEvent *event )
     }
 
     return QwtPlot::eventFilter( object, event );
+}
+
+
+
+void Plot::stop() {
+    this->m_stop = true;
+}
+
+void Plot::play() {
+    this->m_stop = false;
+}
+
+void Plot::stop_play() {
+    this->m_stop = !this->m_stop;
 }

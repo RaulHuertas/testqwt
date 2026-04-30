@@ -3,6 +3,7 @@
 class Plot;
 class Knob;
 class WheelBox;
+class QPushButton;
 
 class MainWindow : public QWidget
 {
@@ -27,6 +28,6 @@ private:
     Knob *d_amplitudeKnob;
     WheelBox *d_timerWheel;
     WheelBox *d_intervalWheel;
-
+    QPushButton* d_stop_play_button;
     Plot *d_plot;
 };
