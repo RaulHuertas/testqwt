@@ -9,6 +9,7 @@
 #include <qlabel.h>
 #include <qlistwidget.h>
 #include <qlistwidget.h>
+#include "GrabDisplay.h"
 
 
 MainWindow::MainWindow( QWidget *parent ):
@@ -40,7 +41,7 @@ MainWindow::MainWindow( QWidget *parent ):
     d_capturesList = new QListWidget(this); 
     d_params_label = new QLabel(this);
     d_params_label->setText("<-Select a capture from the list");
-    d_captures_widget = new QWidget(this);
+    d_captures_widget = new GrabDisplay(this);
     d_captures_widget->setMinimumSize(QSize(100,100));
 
     QVBoxLayout* vLayout1 = new QVBoxLayout();
@@ -144,6 +145,7 @@ void MainWindow::captureSelected(QListWidgetItem* current, QListWidgetItem* prev
         "Amplitude: "+ QString::number(item.amplitude) + ", "
         "Frequency: " + QString::number(item.frequency) 
     );
+    d_captures_widget->setPixmap(item.pixmap);
     d_captures_widget->update();
 }
 

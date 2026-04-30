@@ -18,7 +18,8 @@ HEADERS = \
     wheelbox.h \
     samplingthread.h \
     curvedata.h \
-    mainwindow.h 
+    mainwindow.h \
+    grabdisplay.h 
 
 SOURCES = \
     signaldata.cpp \
@@ -28,4 +29,5 @@ SOURCES = \
     samplingthread.cpp \
     curvedata.cpp \
     mainwindow.cpp \
+    grabdisplay.cpp \
     main.cpp

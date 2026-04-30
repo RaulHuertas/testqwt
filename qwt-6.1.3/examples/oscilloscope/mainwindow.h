@@ -9,6 +9,7 @@ class QPushButton;
 class QListWidget;
 class QLabel;
 class QListWidgetItem;
+class GrabDisplay;
 
 class MainWindow : public QWidget
 {
@@ -43,7 +44,7 @@ private:
 
     QListWidget* d_capturesList;
     QLabel* d_params_label;
-    QWidget* d_captures_widget;
+    GrabDisplay* d_captures_widget;
 
     Plot *d_plot;
 
