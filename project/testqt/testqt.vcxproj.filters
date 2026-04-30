@@ -48,6 +48,7 @@
     <ClInclude Include="..\..\qwt-6.1.3\examples\oscilloscope\signaldata.h">
       <Filter>example</Filter>
     </ClInclude>
+    <ClInclude Include="capture_state.hpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\qwt-6.1.3\examples\oscilloscope\wheelbox.h">

@@ -6,6 +6,9 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
+#include <qlabel.h>
+#include <qlistwidget.h>
+#include <qlistwidget.h>
 
 
 MainWindow::MainWindow( QWidget *parent ):
@@ -31,6 +34,13 @@ MainWindow::MainWindow( QWidget *parent ):
     d_stop_play_button = new QPushButton(this);
     d_stop_play_button->setText("Stop/Play");
      
+    //Captures
+    d_foto_actual = new QPushButton(this);
+    d_foto_actual->setText("Foto Actual");
+    d_capturesList = new QListWidget(this); 
+    d_params_label = new QLabel(this);
+    d_params_label->setText("<-Select a capture from the list");
+    d_captures_widget = new QWidget(this);
 
 
 
@@ -43,11 +53,25 @@ MainWindow::MainWindow( QWidget *parent ):
 
     QVBoxLayout* vLayout2 = new QVBoxLayout();
     vLayout2->addWidget( d_stop_play_button);
+    vLayout2->addWidget(d_foto_actual);
+
+    QVBoxLayout* vLayout3 = new QVBoxLayout();
+    vLayout3->addWidget(d_capturesList);
+
+    QVBoxLayout* vLayout4 = new QVBoxLayout();
+    vLayout4->addWidget(d_params_label);
+    vLayout4->addWidget(d_captures_widget);
+
 
     QHBoxLayout *layout = new QHBoxLayout( this );
     layout->addWidget( d_plot, 10 );
     layout->addLayout( vLayout1 );
-    layout->addLayout(vLayout2);
+    layout->addLayout( vLayout2 );
+    layout->addLayout( vLayout3 );
+    layout->addLayout( vLayout4 );
+
+    //Widgets de captura
+
 
     connect( d_amplitudeKnob, SIGNAL( valueChanged( double ) ),
         SIGNAL( amplitudeChanged( double ) ) );
@@ -61,6 +85,8 @@ MainWindow::MainWindow( QWidget *parent ):
 
     connect(d_stop_play_button, SIGNAL(clicked()),
         d_plot, SLOT(stop_play()));
+    connect(d_foto_actual, SIGNAL(clicked()),
+        this, SLOT(createCapture()));
 
 }
 
@@ -82,4 +108,21 @@ double MainWindow::amplitude() const
 double MainWindow::signalInterval() const
 {
     return d_timerWheel->value();
+}
+
+void MainWindow::createCapture() {
+    CaptureState newItem;
+    newItem.amplitude = d_amplitudeKnob->value();
+    newItem.frequency = d_frequencyKnob->value();
+
+   
+
+    newItem.pixmap = new QPixmap(
+        d_plot->grab(QRect(QPoint(0, 0), QSize(-1, -1)))
+    );
+
+
+    captures.push_back(newItem);
+
+    d_capturesList->addItem("Item "+QString::number(d_capturesList->count()+1));
 }
