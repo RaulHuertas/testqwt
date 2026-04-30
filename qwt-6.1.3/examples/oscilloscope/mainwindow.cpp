@@ -40,11 +40,14 @@ MainWindow::MainWindow( QWidget *parent ):
     vLayout1->addStretch( 10 );
     vLayout1->addWidget( d_amplitudeKnob );
     vLayout1->addWidget( d_frequencyKnob );
-    vLayout1->addWidget( d_stop_play_button);
+
+    QVBoxLayout* vLayout2 = new QVBoxLayout();
+    vLayout2->addWidget( d_stop_play_button);
 
     QHBoxLayout *layout = new QHBoxLayout( this );
     layout->addWidget( d_plot, 10 );
     layout->addLayout( vLayout1 );
+    layout->addLayout(vLayout2);
 
     connect( d_amplitudeKnob, SIGNAL( valueChanged( double ) ),
         SIGNAL( amplitudeChanged( double ) ) );
